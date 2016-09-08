@@ -1,0 +1,132 @@
+mixin giveUnion(i)
+    tr
+        td= i.name
+        td= i.time
+        td= i.pos
+        td= i.leader
+        td= i.teacher
+        td= i.score
+        td
+            | #{i.chosen} / #{i.limit}
+        td
+            a(href='#', data-toggle='modal', data-target='#myModal', data-id!=i.id) 查看名单
+
+extends layout
+
+block content
+    body.hold-transition.skin-blue.sidebar-mini
+        .wrapper
+            include header
+            include aside
+            include modal
+            .content-wrapper
+                section.content-header
+                    h1
+                        | 管理入口
+                        small Version 1.0
+                    ol.breadcrumb
+                        li.active
+                            a(href='#')
+                                i.fa.fa-cog 管理入口
+                section.content
+                    .row
+                        .col-md-6
+                            .box
+                                .box-header.with-border
+                                    h3.box-title 社长导入名单时间设定
+                                    .box-tools.pull-right
+                                        button.btn.btn-box-tool(data-widget='collapse')
+                                            i.fa.fa-minus
+                                        button.btn.btn-box-tool(data-widget='remove')
+                                            i.fa.fa-times
+                                .box-body
+                                    .input-group
+                                        .input-group-addon
+                                            i.fa.fa-clock-o
+                                        input.form-control.pull-right.active#reservationtime-import(type='text')
+                                    br
+                                    button.btn.btn-primary#save-import 保存
+                        .col-md-6
+                            .box
+                                .box-header.with-border
+                                    h3.box-title 社团选择时间设定
+                                    .box-tools.pull-right
+                                        button.btn.btn-box-tool(data-widget='collapse')
+                                            i.fa.fa-minus
+                                        button.btn.btn-box-tool(data-widget='remove')
+                                            i.fa.fa-times
+                                .box-body
+                                    .input-group
+                                        .input-group-addon
+                                            i.fa.fa-clock-o
+                                        input.form-control.pull-right.active#reservationtime-choose(type='text')
+                                    br
+                                    button.btn.btn-primary#save-choose 保存
+                    .row
+                        .col-md-12
+                            .box
+                                .box-header.with-border
+                                    h3.box-title 社团查看
+                                    .box-tools.pull-right
+                                        button.btn.btn-box-tool(data-widget='collapse')
+                                            i.fa.fa-minus
+                                        button.btn.btn-box-tool(data-widget='remove')
+                                            i.fa.fa-times
+                                .box-body
+                                    table.table.table-bordered.table-hover#unions
+                                        thead
+                                            th(width='10%') 社团名称
+                                            th(width='15%') 活动时间
+                                            th(width='20%') 活动地点
+                                            th(width='7%') 社长
+                                            th(width='10%') 指导老师
+                                            th 总评
+                                            th 人数
+                                            th 查看名单
+                                        tbody
+                                            if unions
+                                                each i in unions
+                                                    +giveUnion(i)
+
+block script
+    script(src='/js/usercenter/admin.js')
+    script.
+        $(document).ready(function() {
+            $('#unions').DataTable();
+            $('#reservationtime-import').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 30,
+                format: 'MM/DD/YYYY h:mm A',
+                startDate: new Date('#{importDate ? importDate.startDate : ""}'),
+                endDate: new Date('#{importDate ? importDate.endDate : ""}')
+            });
+            $('#reservationtime-choose').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 30,
+                format: 'MM/DD/YYYY h:mm A',
+                startDate: new Date('#{chooseDate ? chooseDate.startDate : ""}'),
+                endDate: new Date('#{chooseDate ? chooseDate.endDate : ""}')
+            });
+            $('#save-import').click(function(event) {
+                var data = $('#reservationtime-import').data('daterangepicker');
+                var startDate = data.startDate._d, endDate = data.endDate._d;
+                $.get('/api/date/import', {
+                    startDate: startDate,
+                    endDate: endDate
+                }, function(doc) {
+                    alert(doc.msg);
+                });
+            });
+            $('#save-choose').click(function(event) {
+                var data = $('#reservationtime-choose').data('daterangepicker');
+                var startDate = data.startDate._d, endDate = data.endDate._d;
+                $.get('/api/date/choose', {
+                    startDate: startDate,
+                    endDate: endDate
+                }, function(doc) {
+                    alert(doc.msg);
+                });
+            });
+            //$('#reservationtime').daterangepicker();
+        });
+

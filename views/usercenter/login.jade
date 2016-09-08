@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    body.login-page
+        .login-box
+            .login-logo
+                a(href='#')
+                    b 二附中社团系统
+            .login-box-body.box
+                p.login-box-msg 登录到用户中心
+                form
+                    .form-group.has-feedback
+                        input.form-control(name='username', type='text', placeholder='用户名')
+                        span.glyphicon.glyphicon-user.form-control-feedback
+                    .form-group.has-feedback
+                        input.form-control(name='password', type='password', placeholder='密码')
+                        span.glyphicon.glyphicon-lock.form-control-feedback
+                    //
+                        .col-xs-8
+                            .checkbox.icheck
+                                label
+                                    input#remember_me(value='week', type='checkbox')
+                                    |    记住我
+                    .row
+                        .col-xs-8
+                        .col-xs-4
+                            button#login.btn.btn-primary.btn-block.btn-flat(type='submit') 登录
+                #msg-success.alert.alert-info.alert-dismissable(style='display: none;')
+                    button#ok-close.close(type='button', aria-hidden='true') ×
+                    h4
+                        i.icon.fa.fa-info
+                        |    登录成功!
+                    p#msg-success-p
+                #msg-error.alert.alert-warning.alert-dismissable(style='display: none;')
+                    button#error-close.close(type='button', aria-hidden='true') ×
+                    h4
+                        i.icon.fa.fa-warning
+                        |    出错了!
+                    p#msg-error-p
+                a(href='/您真是活该') 忘记密码
+                br
+                a.text-center(href='register') 注册个帐号
+                .overlay(style='display: none')
+                    i.fa.fa-refresh.fa-spin
+block script
+    script(src='/js/usercenter/login.js')

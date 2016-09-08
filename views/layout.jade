@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title= title
+    meta(content!=csrf, name='csrf-token')
+    link(rel='stylesheet', href='/css/materialize.min.css')
+    link(rel='stylesheet', href='/css/customize.min.css')
+    script(src='/js/jquery.min.js')
+    script(src='/js/materialize.min.js')
+  body
+    block content

@@ -1,0 +1,70 @@
+extends layout
+
+block content
+    body.hold-transition.skin-blue.sidebar-mini
+        .wrapper
+            include header
+            include aside
+            .content-wrapper
+                section.content-header
+                    h1
+                        | 社长入口
+                        small Version 1.0
+                    ol.breadcrumb
+                        li.active
+                            a(href='#')
+                                i.fa.fa-archive 社长入口
+                section.content
+                    .row
+                        .col-md-6
+                            .box
+                                .box-header.with-border
+                                    h3.box-title 成员名单
+                                    .box-tools.pull-right
+                                        button.btn.btn-box-tool(data-widget='collapse')
+                                            i.fa.fa-minus
+                                        button.btn.btn-box-tool(data-widget='remove')
+                                            i.fa.fa-times
+                                .box-body
+                                    table#dataTable.table.table-hover
+                                        thead
+                                            tr
+                                                th 成员姓名
+                                                th 成员学号
+                                                th 删除
+                                        tbody
+                                            if members
+                                                each i in members
+                                                    tr
+                                                        td= i.realname
+                                                        td= i.number
+                                                        td
+                                                            a.btn.btn-danger(href!='javascript:del(' + i.number + ')', style='padding: 0 10px 0 10px') 删除
+                        .col-md-6
+                            .box
+                                .box-header.with-border
+                                    h3.box-title 添加成员
+                                    .box-tools.pull-right
+                                        button.btn.btn-box-tool(data-widget='collapse')
+                                            i.fa.fa-minus
+                                        button.btn.btn-box-tool(data-widget='remove')
+                                            i.fa.fa-times
+                                .box-body
+                                    table#dataTable2.table.table-hover
+                                        thead
+                                            tr
+                                                th 成员姓名
+                                                th 成员学号
+                                                th 添加
+                                        tbody
+                                            if students
+                                                each i in students
+                                                    tr
+                                                        td= i.name
+                                                        td= i.number
+                                                        td
+                                                            a.btn.btn-primary(style='padding: 0 10px 0 10px', href!='javascript:add(' + i.number + ')') 添加
+
+block script
+    script $(document).ready(function() {$('#dataTable').DataTable();$('#dataTable2').DataTable();});
+    script(src='/js/usercenter/leader.js')

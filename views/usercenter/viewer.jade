@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    h3= unionName
+    table.table.table-striped.table-hover
+        thead
+            tr
+                th 姓名
+                th 学号
+            tbody
+                if user
+                    each i in user
+                        tr
+                            td= i.realname
+                            td= i.number
+     

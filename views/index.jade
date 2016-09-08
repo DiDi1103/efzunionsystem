@@ -1,0 +1,47 @@
+mixin showCard(title, content, ac1, ac2)
+    .col.s12.m6
+        .card.blue-grey.darken-1
+            .card-content.white-text
+                .card-title= title
+                    p= content
+            .card-action
+                a(href='/')= ac1
+                a(href='/')= ac2
+
+extends layout
+
+block content
+    .section.no-pad-bot#index-banner
+        .container
+            h1.header.center-on-small-only 社团系统
+            .row.center
+                h4.header.col.s12.light.center 一个为学生提供选择社团及学生社团管理功能的系统。
+            .row.center
+                a(href='/usercenter/register').btn-large.waves-effect.waves-light#download-button 注册
+            .row.center
+                a.btn-large.waves-effect.waves-light#login-button(href='/usercenter/login') 登录
+            .row.center
+                a.blue-text.text-lighten-4(href='/') Alpha 0100
+    .container
+        .row
+            +showCard('最新消息', '请尽量使用谷歌浏览器访问该页面', '', '')
+            +showCard('Alpha', '', '', '')
+    footer.page-footer
+        .container
+            .row
+                .col.l6.s12
+                    h5.white-text 华东师范大学第二附属中学
+                    p.grey-text.text-lighten-4
+                        | 有任何问题请发邮件至：magetron1@gmail.com
+                .col.l4.offset-12.s12
+                    h5.white-text 友情链接
+                    ul
+                        li
+                            a.grey-text.text-lighten-3(href='http://github.com') Github
+                        li
+                            a.grey-text.text-lighten-3(href='http://www.hsefz.cn') 华师大二附中
+        .footer-copyright
+            .container © 2016 Student Union Tech Dept. Credit goes to pisces000221, jcpwfloi
+                a.grey-text.text-lighten-4.right(href='http://github.com/hsefz2018') GitHub Link
+
+

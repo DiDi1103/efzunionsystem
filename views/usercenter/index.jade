@@ -1,0 +1,68 @@
+extends layout
+
+block content
+    body.hold-transition.skin-blue.sidebar-mini
+        .wrapper
+            include header
+            include aside
+            .content-wrapper
+                section.content-header
+                    h1
+                        | 首页
+                        small Version 1.0
+                    ol.breadcrumb
+                        li
+                            a(href='#')
+                                i.fa.fa-dashboard 首页
+                        li.active 首页
+                section.content
+                    .row
+                        .col-md-3.col-sm-6.col-xs-12
+                            .info-box
+                                span.info-box-icon.bg-aqua
+                                    i.ion.ion-ios-gear-outline
+                                .info-box-content
+                                    span.info-box-text 出勤率
+                                    span.info-box-number
+                                        if union
+                                            | 0
+                                            small %
+                                        else
+                                            | 尚未选择社团
+                        .col-md-3.col-sm-6.col-xs-12
+                            .info-box
+                                span.info-box-icon.bg-yellow
+                                    i.ion.ion-ios-people-outline
+                                .info-box-content
+                                    span.info-box-text 社团成员
+                                    span.info-box-number
+                                        if union
+                                            | #{union.chosen}
+                                            small 人
+                                        else
+                                            | 尚未选择社团
+                    .row
+                        .col-md-12
+                            .box
+                                .box-header.with-border
+                                    h3.box-title 我的社团
+                                    .box-tools.pull-right
+                                        button.btn.btn-box-tool(data-widget='collapse')
+                                            i.fa.fa-minus
+                                        button.btn.btn-box-tool(data-widget='remove')
+                                            i.fa.fa-times
+                                .box-body
+                                    .row
+                                        .col-md-8
+                                            p.text-center
+                                                strong Sign in Count Sept, 2015 - now
+                                            .chart
+                                                canvas#countChart(style='height: 180px;')
+                                        .col-md-4
+                                            p.text-center
+                                                strong 社团信息
+                                            ul
+                                                li 社团名称：#{union ? union.name : ''}
+                                                li 社长：#{union ? union.leader : ''}
+                                                li 活动地点：#{union ? union.pos : ''}
+                                                li 上学期分数：#{union ? (union.score ? union.score : '新社团') : ''}
